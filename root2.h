@@ -1,7 +1,7 @@
 #ifndef __MY_ROOT_2_H__
 #define __MY_ROOT_2_H__
 
-#include <TObject.h>
+#include "TObject.h"
 
 class your_class : public TObject {
 public:
@@ -10,7 +10,7 @@ public:
     virtual ~your_class(); // destructor
 
 private:
-    Int_t variable; 
+    // some private members
 
     ClassDef(your_class, 1); // your_class
 };
