@@ -1,18 +1,18 @@
-#include "root2.h"  // Include the header file that declares your_class
+#include "root2.h"
 
 // Default constructor
-your_class::your_class() : TObject() {
-    // Initialize your class members here, e.g., set the initial values
+particle::particle() : TObject(), px(0), py(0), pz(0) {
+    // Initialize all members to zero in the default constructor
 }
 
-// Another constructor
-your_class::your_class(Int_t variable) : TObject() {
-    // Initialize your class members here based on the "variable" argument
+// Constructor with momentum
+particle::particle(Double_t px, Double_t py, Double_t pz) : TObject(), px(px), py(py), pz(pz) {
+    // Calculate the magnitude
+    magnitude = TMath::Sqrt(px * px + py * py + pz * pz);
 }
 
 // Destructor
-your_class::~your_class() {
+particle::~particle() {
     // Implement any necessary cleanup or resource management here
 }
 
-ClassImp(your_class); 
