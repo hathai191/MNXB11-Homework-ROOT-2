@@ -15,16 +15,15 @@ public:
 
     Double_t GetMagnitude() const { return magnitude; }
 
-    // Setter methods for momentum components
     void SetPxPyPz(Double_t px, Double_t py, Double_t pz);
 
 private:
-    Double_t px;  // Member for momentum in x direction
-    Double_t py;  // Member for momentum in y direction
-    Double_t pz;  // Member for momentum in z direction
-    Double_t magnitude; // Member for the magnitude of the momentum vector
+    Double_t px;  
+    Double_t py;  
+    Double_t pz;  
+    Double_t magnitude; 
 
-    ClassDef(particle, 1); // particle
+    ClassDef(particle, 1); 
 };
 
 #endif // __MY_ROOT_2_H__

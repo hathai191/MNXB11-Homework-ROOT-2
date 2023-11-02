@@ -7,44 +7,47 @@
 #include "root2.h"
 
 void read() {
-    // Initialize your object
     particle* my_particle = new particle();
 
-    // Open your file
     TFile* file = new TFile("tree_file.root", "READ");
 
-    // Get your TTree
     TTree* tree = (TTree*)file->Get("tree");
 
-    // Set the branch address
     tree->SetBranchAddress("myObject", &my_particle);
 
-    // Create a TH2 histogram for px and py
-    TH2F* hist = new TH2F("hist", "Momentum Distribution;px;py", 100, -0.1, 0.1, 100, -0.1, 0.1);
+    TH2F* hist_momentum = new TH2F("hist_momentum", "Momentum Distribution;px;py", 100, -0.1, 0.1, 100, -0.1, 0.1);
 
-    // Loop over the entire tree
+    TH2F* hist_scatter = new TH2F("hist_scatter", "Scatter Plot;px*py;pz", 100, -0.02, 0.02, 100, -0.02, 0.02);
+
+    TString cut = "my_particle.GetMagnitude() > 0.01";
+
+    tree->Draw("px*py:pz", cut);
+
     Int_t N = tree->GetEntries();
     for (Int_t i = 0; i < N; i++) {
         tree->GetEntry(i);
 
-        // Access the px and py values from the my_particle object
         Double_t px = my_particle->GetPx();
         Double_t py = my_particle->GetPy();
+        Double_t pz = my_particle->GetPz();
 
-        // Fill the TH2 histogram
-        hist->Fill(px, py);
+        hist_momentum->Fill(px, py);
+
+        hist_scatter->Fill(px * py, pz);
     }
 
-    // Create a canvas to draw the histogram
     TCanvas* c1 = new TCanvas("c1", "Momentum Distribution");
-    hist->Draw("COLZ");
+    TCanvas* c2 = new TCanvas("c2", "Scatter Plot");
 
-    // Save the histogram as a PNG
+    c1->cd();
+    hist_momentum->Draw("COLZ");
+
+    c2->cd();
+    hist_scatter->Draw("COLZ");
+
     c1->SaveAs("momentum_distribution.png");
+    c2->SaveAs("scatter_plot.png");
 
-    // Clean up
     delete my_particle;
     file->Close();
 }
-
-
