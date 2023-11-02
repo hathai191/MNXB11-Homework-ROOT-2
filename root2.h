@@ -15,6 +15,9 @@ public:
 
     Double_t GetMagnitude() const { return magnitude; }
 
+    // Setter methods for momentum components
+    void SetPxPyPz(Double_t px, Double_t py, Double_t pz);
+
 private:
     Double_t px;  // Member for momentum in x direction
     Double_t py;  // Member for momentum in y direction

@@ -18,5 +18,8 @@
 ./root2_cxx.so: /opt/apps/root/include/TStorage.h
 ./root2_cxx.so: /opt/apps/root/include/TVersionCheck.h
 ./root2_cxx.so: /opt/apps/root/include/RVersion.h
+./root2_cxx.so: /opt/apps/root/include/TMath.h
+./root2_cxx.so: /opt/apps/root/include/TMathBase.h
+./root2_cxx.so: /opt/apps/root/include/TError.h
 ./root2_cxx.so: /opt/apps/root/include/RVersion.h /opt/apps/root/include/ROOT/RConfig.hxx /opt/apps/root/include/TClass.h /opt/apps/root/include/TDictAttributeMap.h /opt/apps/root/include/TInterpreter.h /opt/apps/root/include/TROOT.h /opt/apps/root/include/TBuffer.h /opt/apps/root/include/TMemberInspector.h /opt/apps/root/include/TError.h /opt/apps/root/include/RtypesImp.h /opt/apps/root/include/TIsAProxy.h /opt/apps/root/include/TFileMergeInfo.h /opt/apps/root/include/TCollectionProxyInfo.h /opt/apps/root/bin/rootcling
 root2_cxx__ROOTBUILDVERSION= 6.28/04

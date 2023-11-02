@@ -1,5 +1,6 @@
+#include <iostream>
 #include "TFile.h"
-#include "TTree"
+#include "TTree.h"
 #include "TMath.h"  
 #include "TRandom3.h"
 #include "root2.h"  
@@ -9,7 +10,7 @@ void write() {
     particle* obj = new particle();
 
     // Create your ROOT file
-    TFile* outputFile = new TFile("tree_file.root", "RECREATE");
+    TFile* file = new TFile("tree_file.root", "RECREATE");
 
     // Create your TTree
     TTree* tree = new TTree("tree", "My TTree");
@@ -21,9 +22,9 @@ void write() {
     Int_t nEvents = 100;  // For example
 
     for (Int_t i = 0; i < nEvents; i++) {
-        // Initialize your new object below
-        obj = new particle();
-
+        // Create a new particle object in each iteration
+        particle* obj = new particle();
+        
         // Generate random momentum values
         Double_t px = gRandom->Gaus(0, 0.02);
         Double_t py = gRandom->Gaus(0, 0.02);
@@ -31,6 +32,10 @@ void write() {
 
         // Set the momentum values in your object
         obj->SetPxPyPz(px, py, pz);
+
+        // Calculate and print the magnitude of the momentum vector
+        Double_t magnitude = obj->GetMagnitude();
+        std::cout << "Event " << i << " - Momentum Magnitude: " << magnitude << std::endl;
 
         // Fill the tree with the object
         tree->Fill();
@@ -47,7 +52,3 @@ void write() {
 
 }
 
-int main() {
-    write();
-    return 0;
-}

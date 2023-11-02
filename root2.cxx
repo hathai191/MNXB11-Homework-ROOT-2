@@ -1,13 +1,19 @@
 #include "root2.h"
+#include "TMath.h"
 
-// Default constructor
-particle::particle() : TObject(), px(0), py(0), pz(0) {
-    // Initialize all members to zero in the default constructor
+// Constructor with momentum components
+particle::particle(Double_t x, Double_t y, Double_t z) : TObject() {
+    px = x;
+    py = y;
+    pz = z;
+    magnitude = TMath::Sqrt(px * px + py * py + pz * pz);
 }
 
-// Constructor with momentum
-particle::particle(Double_t px, Double_t py, Double_t pz) : TObject(), px(px), py(py), pz(pz) {
-    // Calculate the magnitude
+// Setter method for momentum components
+void particle::SetPxPyPz(Double_t x, Double_t y, Double_t z) {
+    px = x;
+    py = y;
+    pz = z;
     magnitude = TMath::Sqrt(px * px + py * py + pz * pz);
 }
 
@@ -15,4 +21,3 @@ particle::particle(Double_t px, Double_t py, Double_t pz) : TObject(), px(px), p
 particle::~particle() {
     // Implement any necessary cleanup or resource management here
 }
-
