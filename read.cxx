@@ -3,38 +3,38 @@
 #include "TTree.h"
 #include "TH2F.h"
 #include "TCanvas.h"
-#include "TBrowser.h"
-#include "root2.h"
+#include "my_root_program.h"
 
 void read() {
-    particle* my_particle = new particle();
+    AHParticle* my_particle = nullptr; 
 
     TFile* file = new TFile("tree_file.root", "READ");
-
     TTree* tree = (TTree*)file->Get("tree");
 
-    tree->SetBranchAddress("myObject", &my_particle);
+    tree->SetBranchAddress("myObject", &my_particle); 
 
     TH2F* hist_momentum = new TH2F("hist_momentum", "Momentum Distribution;px;py", 100, -0.1, 0.1, 100, -0.1, 0.1);
 
     TH2F* hist_scatter = new TH2F("hist_scatter", "Scatter Plot;px*py;pz", 100, -0.02, 0.02, 100, -0.02, 0.02);
 
-    TString cut = "my_particle.GetMagnitude() > 0.01";
-
-    tree->Draw("px*py:pz", cut);
-
     Int_t N = tree->GetEntries();
     for (Int_t i = 0; i < N; i++) {
+        my_particle = new AHParticle(); 
+
         tree->GetEntry(i);
 
         Double_t px = my_particle->GetPx();
         Double_t py = my_particle->GetPy();
         Double_t pz = my_particle->GetPz();
 
-        hist_momentum->Fill(px, py);
+        std::cout << "Event " << i << " - px: " << px << ", py: " << py << ", pz: " << pz << std::endl;
 
+        hist_momentum->Fill(px, py);
         hist_scatter->Fill(px * py, pz);
+
+        delete my_particle; // Delete the object after processing
     }
+
 
     TCanvas* c1 = new TCanvas("c1", "Momentum Distribution");
     TCanvas* c2 = new TCanvas("c2", "Scatter Plot");
